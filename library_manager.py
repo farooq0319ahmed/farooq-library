@@ -12,7 +12,7 @@ import requests
 
 #set page configuration
 st.set_page_config(
-    page_title="Personal Library Management System"
+    page_title="Personal Library Management S
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -172,7 +172,7 @@ def search_books(search_term, search_by):
 #calculate library stats
 def get_library_stats():
     total_books = len(st.session_state.library)
-    read_books =sum(1 for book in st.session_state.library if book['read status'])
+    read_books =sum(1 for book in st.session_state.library if book['read_status'])
     percent_read = (read_books / total_books * 100) if total_books > 0 else 0
 
     genres = {}
@@ -254,7 +254,7 @@ def create_visulations(stats):
         fig_decades = px.line(
             decades_df,
             x='Decade',
-            y='Count'
+            y='Count',
             markers=True,
             line_sape="spline"
         )
@@ -350,7 +350,7 @@ elif st.session_state.current_view =="library":
                             st.rerun()
                 with col2:
                     new_status = not book['read_status']
-                    status_label = "Matk as read" if not book['read_status'] else "Mark as Unread"
+                    status_label = "Mark as read" if not book['read_status'] else "Mark as Unread"
                     if st.button(status_label, key=f"status_{i}", use_container_width=True):
                         st.session_state.library[i]['read_status'] = new_status
                         save_library()
@@ -370,7 +370,7 @@ elif st.session_state.current_view =="search":
                 time.sleep(0.5)
                 search_books(search_term, search_by)
     if hasattr(st.session_state, 'search_results'):
-        if st.session_state.search_reasults:
+        if st.session_state.search_results:
             st.markdown(f"<h3> Found {len(st.session_state.search_results)} results:</h3>", unsafe_allow_html=True)
 
             for i, book in enumerate(st.session_state.search_results):
