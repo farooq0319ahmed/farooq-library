@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 import os
-from datetime import datatime
+from datetime import datetime
 import time
 import random
 import plotly.express as px
