@@ -29,7 +29,6 @@ st.markdown("""
         text-align: center;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
-
     .sub_header {
         font-size: 1.8rem !important;
         color:3B82F6;
