@@ -10,7 +10,7 @@ import random
 #from streamlit_lottie import st_lottie
 import requests
 
-#set page configuration
+# Set page configuration
 st.set_page_config(
     page_title="Personal Library Manager",
     page_icon="📚",
@@ -18,7 +18,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-#custom cs for styling
+# Custom cs for styling
 st.markdown("""
 <style>
     .main-header {
@@ -120,7 +120,7 @@ def load_library():
         st.error(f"Error loading library: {e}")
         return False
     
-#save library
+# Save library
 def save_library():
     try:
         with open('library.json', 'w') as file:
@@ -129,7 +129,7 @@ def save_library():
     except Exception as e:
         st.error(f"Error loading library: {e}")
         return False
-#add a book to library
+# Add a book to library
 def add_book(title, author, publication_year, genre, read_status):
     book = {
         'title': title,
@@ -144,7 +144,7 @@ def add_book(title, author, publication_year, genre, read_status):
     st.session_state.book_added = True
     time.sleep(0.5) #animation delay
 
-#remove books
+# Remove books
 def remove_book(index):
     if 0 <= index < len(st.session_state.library):
 
@@ -154,7 +154,7 @@ def remove_book(index):
         return True
     return False
 
-#search books
+# Search books
 def search_books(search_term, search_by):
     search_term = search_term.lower()
     results = []
@@ -168,7 +168,7 @@ def search_books(search_term, search_by):
             results.append(book)
     st.session_state.search_results = results
 
-#calculate library stats
+# Calculate library stats
 def get_library_stats():
     total_books = len(st.session_state.library)
     read_books =sum(1 for book in st.session_state.library if book['read_status'])
@@ -184,20 +184,20 @@ def get_library_stats():
         else:
             genres[book['genre']] = 1
 
-        #count author
+        # Count author
         if book['author'] in authors:
             authors[book['author']] += 1
         else:
             authors[book['author']] = 1
 
-        #count decades
+        # Count decades
         decades = (book['publication_year'] // 10) * 10
         if decades in decades:
             decades[decades] += 1
         else:
             decades[decades] = 1
 
-    #sort by count
+    # Sort by count
     genres = dict(sorted(genres.items(), key=lambda x: x[1], reverse=True))
     authors = dict(sorted(authors.items(), key=lambda x: x[1], reverse=True))
     decades = dict(sorted(decades.items(), key=lambda x: x[0]))
@@ -225,7 +225,7 @@ def create_visulations(stats):
             height=400
         )
         st.plotly_chart(fig_read_status, use_container_width=True)
-    #bar chart genres
+    # Bar chart genres
     if stats['genres']:
         genres_df = pd.DataFrame({
             'Genre': list(stats['genres'].keys()),
@@ -266,7 +266,7 @@ def create_visulations(stats):
         st.plotly_chart(fig_decades, use_container_width=True)
 
 
-#load library data on app start
+# Load library data on app start
 load_library()
 
 # Sidebar navigation
@@ -298,7 +298,7 @@ st.markdown("<h1 class='main-header'> Personal Library Manger </h1>", unsafe_all
 if st.session_state.current_view == "add":
     st.markdown("<h2 class='sub-header'> Add a new book</h2>", unsafe_allow_html=True)
 
-    #adding books input form
+    # Adding books input form
     with st.form(key='add_book_form'):
         col1, col2 = st.columns(2)
 
