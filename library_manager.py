@@ -100,7 +100,7 @@ def load_lottieurl(url):
 if 'library' not in st.session_state:
     st.session_state.library = []
 if 'search_results' not in st.session_state:
-        st.session_state.search_results = []
+    st.session_state.search_results = []
 if 'book_added' not in st.session_state:
     st.session_state.book_added = False
 if 'book_removed' not in st.session_state:
@@ -118,8 +118,8 @@ def load_library():
         return False
     except Exception as e:
         st.error(f"Error loading library: {e}")
-        return False
-    
+    return False
+
 # Save library data to file
 def save_library():
     try:
@@ -217,11 +217,11 @@ def get_library_stats():
 def create_visualizations(stats):
     # Read vs Unread pie chart
     if stats['total_books'] > 0:
-        fig_read_status = go.Figure(data=[go.pie(
-            labels=['Read' , 'Unread'],
+        fig_read_status = go.Figure(data=[go.Pie(
+            labels=['Read', 'Unread'],
             values=[stats['read_books'], stats['total_books'] - stats['read_books']],
             hole=.4,
-            marker_colors=['#10B981' , '#F87171']
+            marker_colors=['#10B981', '#F87171']
         )])
         fig_read_status.update_layout(
             title_text="Read vs Unread Books",
@@ -237,11 +237,11 @@ def create_visualizations(stats):
             'Count': list(stats['genres'].values())
         })
         fig_genres = px.bar(
-            genres_df,
-            x='Genre',
+            genres_df, 
+            x='Genre', 
             y='Count',
             color='Count',
-            color_continous_scale=px.colors.sequential.Blues
+            color_continuous_scale=px.colors.sequential.Blues
         )
         fig_genres.update_layout(
             title_text="Books by Genre",
@@ -444,4 +444,3 @@ elif st.session_state.current_view == "stats":
 # Footer
 st.markdown("---")
 st.markdown("@ 2025 Farooq Ahmed Personal Library Manager | Created with Love and Streamlit", unsafe_allow_html=True)
-
